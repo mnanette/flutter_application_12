@@ -61,7 +61,7 @@ child: Container(
 color: const Color (0xfffbfafb), padding: const EdgeInsets.all(20), child: GridView.count(
 crossAxisCount: 2, mainAxisSpacing: 20, crossAxisSpacing: 20,
 children:
-GridViewItem(), Container(
+const GridViewItem(), Container(
 
   }
 }
