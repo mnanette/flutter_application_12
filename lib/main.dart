@@ -1,16 +1,21 @@
 // ignore_for_file: prefer_const_constructors, must_be_immutable
-import 'package:flutter_application_12/helpers/sgl_helper.dart';
+import 'package:easy_pos_r5/helpers/sgl_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_12/pages/home.dart';
+import 'package:easy_pos_r5/pages/home.dart';
+import 'package:get_it/get_it.dart';
 
-void main() {
-  runApp(MyApp(
-    title: 'Easy pos',
-  ));
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  var sqlHelper = SqlHelper();
+  await sqlHelper.init();
+  if (sqlHelper.db != null) {
+    GetIt.I.registerSingleton<SqlHelper>(sqlHelper);
+  }
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key, required this.title});
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,34 +40,23 @@ class MyApp extends StatelessWidget {
   }
 
   MaterialColor getMaterialColor(Color color) {
+    final int red = color.red;
+    final int green = color.green;
+    final int blue = color.blue;
+
     final Map<int, Color> shades = {
-      50: Color.fromRGBO(136, 14, 79, .1),
-      100: Color.fromRGBO(136, 14, 79, .2),
-      200: Color.fromRGBO(136, 14, 79, .3),
-      300: Color.fromRGBO(136, 14, 79, .4),
-      400: Color.fromRGBO(136, 14, 79, .5),
-      500: Color.fromRGBO(136, 14, 79, .6),
-      600: Color.fromRGBO(136, 14, 79, .7),
-      700: Color.fromRGBO(136, 14, 79, .8),
-      800: Color.fromRGBO(136, 14, 79, .9),
-      900: Color.fromRGBO(136, 14, 79, 1),
+      50: Color.fromRGBO(red, green, blue, .1),
+      100: Color.fromRGBO(red, green, blue, .2),
+      200: Color.fromRGBO(red, green, blue, .3),
+      300: Color.fromRGBO(red, green, blue, .4),
+      400: Color.fromRGBO(red, green, blue, .5),
+      500: Color.fromRGBO(red, green, blue, .6),
+      600: Color.fromRGBO(red, green, blue, .7),
+      700: Color.fromRGBO(red, green, blue, .8),
+      800: Color.fromRGBO(red, green, blue, .9),
+      900: Color.fromRGBO(red, green, blue, 1),
     };
+
     return MaterialColor(color.value, shades);
   }
-
-  //var materialColor = getMaterialColor(Color(0xFF42A5F5));
-
-//print(materialColor);
-
-  final String title;
-}
-
-@override
-Widget build(BuildContext context) {
-  return Scaffold(
-      body: Center(
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-    ),
-  )); // This trailing comma makes auto-formatting nicer for build methods.
 }

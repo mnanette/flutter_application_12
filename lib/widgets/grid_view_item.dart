@@ -1,18 +1,52 @@
 import 'package:flutter/material.dart';
 
 class GridViewItem extends StatelessWidget {
-  const GridViewItem({super.key});
+  final Color color;
+  final String label;
+  final IconData iconData;
+  final void Function()? onPressed;
+  const GridViewItem(
+      {required this.label,
+      required this.color,
+      required this.iconData,
+      required this.onPressed,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return InkWell(
+      onTap: onPressed,
+      child: Card(
         color: Colors.white,
         surfaceTintColor: Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-// ignore: prefer_const_constructors
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5),
+        ),
         child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            // ignore: prefer_const_constructors, prefer_const_literals_to_create_immutables
-            children: [CircleAvatar()]));
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CircleAvatar(
+              radius: 40,
+              backgroundColor: color.withOpacity(.3),
+              child: Icon(
+                iconData,
+                color: color,
+                size: 40,
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Text(
+              label,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w800,
+              ),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
